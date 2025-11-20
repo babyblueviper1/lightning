@@ -152,7 +152,7 @@ ENV PKG_CONFIG_LIBDIR=/usr/lib/${target_arch}/pkgconfig
 WORKDIR /opt/lightningd
 
 #TODO: find a way to avoid copying the .git/ directory (it always invalidates the cache)
-COPY .git/ .git/
+#COPY .git/ .git/
 RUN git submodule update --init --recursive --jobs $(nproc) --depth 1
 
 RUN ./configure --prefix=/tmp/lightning_install --enable-static --disable-compat --disable-valgrind
