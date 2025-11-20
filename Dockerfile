@@ -37,7 +37,7 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 
 WORKDIR /opt
 
-# Clone CLN without .git and submodules
+# Clone CLN
 RUN git clone --depth 1 https://github.com/ElementsProject/lightning.git
 WORKDIR /opt/lightning
 
@@ -58,8 +58,8 @@ RUN apt-get update && \
         libsodium23 && \
     rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /opt/lightning/lightningd /usr/local/bin/
-COPY --from=builder /opt/lightning/cli/lightning-cli /usr/local/bin/
+COPY --from=0 /opt/lightning/lightningd/lightningd /usr/local/bin/
+COPY --from=0 /opt/lightning/cli/lightning-cli /usr/local/bin/
 
 # Entry point
 COPY tools/docker-entrypoint.sh /entrypoint.sh
